@@ -8,4 +8,4 @@ st.title("Dagboek")
 
 st.write('Under construction')
 
-st.image("pages/egeltje.jpeg")
+st.image("data/egeltje.jpeg")
