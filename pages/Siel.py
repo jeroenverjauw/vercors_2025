@@ -46,7 +46,6 @@ with tab1:
     # Display images in a grid 
     cols = st.columns(cols_per_row)
     for idx, img_file in enumerate(image_files):
-        st.write(img_file)
         image_path = os.path.join(image_folder, img_file)
         img = Image.open(image_path)
 
