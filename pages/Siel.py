@@ -11,9 +11,15 @@ st.title("Siel's media")
 image_folder = "data/pictures/Siel/"
 video_folder = "data/videos/Siel/"
 
+def extract_number(filename):
+    match = re.search(r'\d+', filename)
+    return int(match.group()) if match else float('inf')  # put non-numbered files last
+
+# Sort files based on extracted numbers
+image_files = sorted([f for f in os.listdir(image_folder) if f.lower().endswith(('jpg', 'jpeg', 'png'))], key=extract_number)
+
 # File filters
-image_files = [f for f in os.listdir(image_folder) if f.lower().endswith(('jpg', 'jpeg', 'png'))]
-video_files = [f for f in os.listdir(video_folder) if f.lower().endswith(('mp4', 'mov', 'avi'))]
+video_files = sorted([f for f in os.listdir(video_folder) if f.lower().endswith(('mp4', 'mov', 'avi'))],key = extract_number)
 
 # Setup session state
 if "selected_image" not in st.session_state:
