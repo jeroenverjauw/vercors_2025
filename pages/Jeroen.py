@@ -1,32 +1,84 @@
 import streamlit as st
 from pathlib import Path
 import os
+from PIL import Image
 import re
-
-
+import zipfile
+from io import BytesIO
 
 st.title("Jeroen's media")
 
-st.subheader("Foto's")
-foto_path = "data/pictures/Jeroen/"
+# Paths
+image_folder = "data/pictures/Jeroen/"
+video_folder = "data/videos/Jeroen/"
 
-files = [i for i in os.listdir(foto_path) if '.jpg' in i.lower()]
-
-# Extract number using regex and sort
+# Extract numeric sort key
 def extract_number(filename):
     match = re.search(r'\d+', filename)
-    return int(match.group()) if match else float('inf')  # put non-numbered files last
+    return int(match.group()) if match else float('inf')
 
-# Sort files based on extracted numbers
-files = sorted(files, key=extract_number)
+# Get and sort files
+image_files = sorted([f for f in os.listdir(image_folder) if f.lower().endswith(('jpg', 'jpeg', 'png'))], key=extract_number)
+video_files = sorted([f for f in os.listdir(video_folder) if f.lower().endswith(('mp4', 'mov', 'avi'))], key=extract_number)
 
-for file in files:
-    st.image(foto_path+file)
+# Create tabs
+gallery_type = st.selectbox("Select gallery type:", ["🖼️ Image Gallery", "🎬 Video Gallery"])
 
-st.subheader("Video's")
-video_path = "data/videos/Jeroen/"
+if gallery_type == "🖼️ Image Gallery":
+    st.header("Image Gallery")
 
-files = os.listdir(video_path) 
+    if st.button("Create ZIP of Figures"):
+    # Create in-memory ZIP file
+        zip_buffer = BytesIO()
+        with zipfile.ZipFile(zip_buffer, "w") as zip_file:
+            for fig_file in image_files:
+                file_path = os.path.join(image_folder, fig_file)
+                zip_file.write(file_path, arcname=fig_file)  # arcname avoids folder nesting
 
-for file in files:
-    st.video(video_path+file)
+        zip_buffer.seek(0)
+
+        # Provide download button
+        st.download_button(
+            label="Download ZIP",
+            data=zip_buffer,
+            file_name="figures.zip",
+            mime="application/zip"
+        )
+
+    cols_per_row = st.slider("Photos per row", 1, 5, 3)
+
+    cols = st.columns(cols_per_row)
+    for idx, img_file in enumerate(image_files):
+        image_path = os.path.join(image_folder, img_file)
+        img = Image.open(image_path)
+
+        with cols[idx % cols_per_row]:
+            st.image(img, use_container_width=True)
+
+# -------------------------
+# Tab 2: Video Gallery
+# -------------------------
+elif gallery_type == "🎬 Video Gallery":
+    st.header("Video Gallery")
+
+    if st.button("Create ZIP of Figures"):
+    # Create in-memory ZIP file
+        zip_buffer = BytesIO()
+        with zipfile.ZipFile(zip_buffer, "w") as zip_file:
+            for video_file in video_files:
+                file_path = os.path.join(video_folder, video_file)
+                zip_file.write(file_path, arcname=video_file)  # arcname avoids folder nesting
+
+        zip_buffer.seek(0)
+
+        # Provide download button
+        st.download_button(
+            label="Download ZIP",
+            data=zip_buffer,
+            file_name="videos.zip",
+            mime="application/zip"
+        )
+
+    for video_file in video_files:
+        video_path = os.path.join(video_folder, video_file)
+        st.video(video_path)
