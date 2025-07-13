@@ -23,7 +23,7 @@ video_files = sorted([f for f in os.listdir(video_folder) if f.lower().endswith(
 
 # Setup session state
 if "selected_image" not in st.session_state:
-    st.session_state.selected_image = None
+    st.session_state.selected_image = None 
 
 if "selected_video" not in st.session_state:
     st.session_state.selected_video = None
@@ -37,12 +37,6 @@ tab1, tab2 = st.tabs(["🖼️ Image Gallery", "🎬 Video Gallery"])
 
 # files = [i for i in os.listdir(foto_path) if '.jpg' in i.lower()]
 
-# Extract number using regex and sort
-def extract_number(filename):
-    match = re.search(r'\d+', filename)
-    return int(match.group()) if match else float('inf')  # put non-numbered files last
-
-
 with tab1:
     st.header("Image Gallery")
 
@@ -52,6 +46,7 @@ with tab1:
     # Display images in a grid 
     cols = st.columns(cols_per_row)
     for idx, img_file in enumerate(image_files):
+        st.write(img_file)
         image_path = os.path.join(image_folder, img_file)
         img = Image.open(image_path)
 
