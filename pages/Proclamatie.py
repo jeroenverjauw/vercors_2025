@@ -8,4 +8,6 @@ st.title("Dagboek")
 
 st.write('Under construction')
 
+st.video("data/videos/Jeroen/output_video.mp4")
+
 st.video("data/videos/Think_about_things.mp4")
