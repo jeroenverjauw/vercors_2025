@@ -21,7 +21,7 @@ def extract_number(filename):
 image_files = sorted([f for f in os.listdir(image_folder) if f.lower().endswith(('jpg', 'jpeg', 'png'))], key=extract_number)
 video_files = sorted([f for f in os.listdir(video_folder) if f.lower().endswith(('mp4', 'mov', 'avi'))], key=extract_number)
 
-# Create tabs
+# Create tabs 
 gallery_type = st.selectbox("Select gallery type:", ["🖼️ Image Gallery", "🎬 Video Gallery"])
 
 if gallery_type == "🖼️ Image Gallery":
