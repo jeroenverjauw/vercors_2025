@@ -45,7 +45,7 @@ if gallery_type == "🖼️ Image Gallery":
             mime="application/zip"
         )
 
-    cols_per_row = st.slider("Photos per row", 1, 5, 3)
+    cols_per_row = st.slider("Photos per row", 1, 5, 1)
 
     cols = st.columns(cols_per_row)
     for idx, img_file in enumerate(image_files):
