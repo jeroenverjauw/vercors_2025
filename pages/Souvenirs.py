@@ -10,4 +10,4 @@ st.title("Des Petites Souvenirs")
 
 pdf_viewer("data/pictures/extra/postkaart_voorkant.pdf") 
 pdf_viewer("data/pictures/extra/postkaart_achterkant.pdf") 
-st.image("data/pictures/jeroen/IMG_4129.jpg")  
+st.image("data/pictures/Jeroen/IMG_4129.jpg")  
