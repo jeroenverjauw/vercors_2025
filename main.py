@@ -12,7 +12,7 @@ Siel = st.Page("pages/Siel.py", title="Siel", )
 Jakob = st.Page("pages/Jakob.py", title="Jakob", )
 Gerout = st.Page("pages/Gerout.py", title="Gerout", )
 Muziek = st.Page("pages/Muziek.py", title="Muziek", )
-Souvenirs = st.Page("pages/Souvenirs.py", title="Des Petites Souvenirs", )
+Souvenirs = st.Page("pages/Souvenirs.py", title="Des Petits Souvenirs", )
 
 pg = st.navigation(
         {
